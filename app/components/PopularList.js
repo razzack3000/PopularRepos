@@ -1,7 +1,31 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types'
 import Button from '@mui/material/Button';
 
+
+function LanguagesNavbar(props){
+
+  const languageCategories = [ 'All', 'JS', 'Java', 'Python', 'CSS', 'Ruby'];
+  return (
+    <ul className="buttons">
+      {languageCategories.map((language) => (
+        <li key={language}>
+           <Button variant="contained"
+           style={language === props.selected ? {color: 'yellow'} : null}
+           onClick={() => props.onUpdateLanguage(language)}>
+             {language}
+           </Button>
+        </li>
+      ))}
+      </ul>
+  )
+}
+
+LanguagesNavbar.propTypes = {
+  selected: PropTypes.string.isRequired,
+  onUpdateLanguage: PropTypes.func.isRequired
+}
 
 export default class PopularList extends React.Component {
   constructor(props){
@@ -10,6 +34,7 @@ export default class PopularList extends React.Component {
     this.state = {
       selectedLanguage: 'All'
     }
+    this.changeLanguage = this.changeLanguage.bind(this)
   }
 
   changeLanguage(selectedLanguage) {
@@ -18,20 +43,14 @@ export default class PopularList extends React.Component {
     })
   }
   render() {
-    const languageCategories = [ 'All', 'JS', 'Java', 'Python', 'CSS', 'Ruby'];
 
     return (
-      <ul className="buttons">
-      {languageCategories.map((language) => (
-        <li key={language}>
-           <Button variant="contained"
-           style={language === this.state.selectedLanguage ? {color: 'yellow'} : null}
-           onClick={() => this.changeLanguage(language)}>
-             {language}
-           </Button>
-        </li>
-      ))}
-      </ul>
+      <div>
+        <LanguagesNavbar
+        selected={this.state.selectedLanguage}
+        onUpdateLanguage={this.changeLanguage}
+        />
+      </div>
 
     )
   }
