@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 import Button from '@mui/material/Button';
-
+import { fetchRepos } from '../apis/api'
 
 function LanguagesNavbar(props){
 
@@ -32,14 +32,18 @@ export default class PopularList extends React.Component {
     super(props)
 
     this.state = {
-      selectedLanguage: 'All'
+      selectedLanguage: 'All',
+      error: null,
+      repos: null
     }
     this.changeLanguage = this.changeLanguage.bind(this)
   }
 
   changeLanguage(selectedLanguage) {
     this.setState({
-      selectedLanguage
+      selectedLanguage,
+      error: null,
+      repos: null
     })
   }
   render() {
