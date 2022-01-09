@@ -42,8 +42,9 @@ export default class PopularList extends React.Component {
   changeLanguage(selectedLanguage) {
     this.setState({
       selectedLanguage,
+      repos: null,
       error: null,
-      repos: null
+
     })
 
 
@@ -65,22 +66,21 @@ export default class PopularList extends React.Component {
   }
 
   isLoading(){
-    if(this.state.repos === null && this.state.error === null){
-      return true;
-    }
+    return this.state.repos === null && this.state.error === null
   }
   render() {
 
     return (
-      <div>
+      <React.Fragment>
         <LanguagesNavbar
         selected={this.state.selectedLanguage}
         onUpdateLanguage={this.changeLanguage}
         />
-        {this.isLoading && <p>LOADING</p>}
+        {this.isLoading() && <p>LOADING</p>}
         {this.state.error && <p>{this.state.error}</p>}
+
         {this.state.repos && <pre>{JSON.stringify(this.state.repos, null, 2)}</pre>}
-      </div>
+      </React.Fragment>
 
     )
   }
