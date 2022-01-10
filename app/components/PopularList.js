@@ -34,7 +34,8 @@ export default class PopularList extends React.Component {
     this.state = {
       selectedLanguage: 'All',
       error: null,
-      repos: null
+      repos: {}
+
     }
     this.changeLanguage = this.changeLanguage.bind(this)
     this.isLoading = this.isLoading.bind(this)
@@ -43,32 +44,38 @@ export default class PopularList extends React.Component {
   changeLanguage(selectedLanguage) {
     this.setState({
       selectedLanguage,
-      repos: null,
       error: null,
 
     })
 
-
+  if(!this.state.repos[selectedLanguage]){
     fetchRepos(selectedLanguage)
-  .then((repos) => this.setState(
-    {
-      repos,
-      error: null
+    .then((data) => {
+      this.setState(({repos}) => ({
+        repos: {
+          ...repos,
+          [selectedLanguage]: data
+        }
+
+      }))
+
+    })
+      .catch(() => {
+        console.warn('Error fetching repo:', error)
+
+      this.setState({
+        error: 'Error fetching the repos'
+      })
+    })
     }
-    ))
-    .catch(() => {
-      console.warn('Error fetching repo:', error)
-
-    this.setState({
-      error: 'Error fetching the repos'
-    })
-    })
-
   }
+
 
   isLoading(){
-    return this.state.repos === null && this.state.error === null
+    const { selectedLanguage, repos, error } = this.state
+    return !repos[selectedLanguage] && error === null
   }
+
   render() {
 
     return (
@@ -80,7 +87,7 @@ export default class PopularList extends React.Component {
         {this.isLoading() && <p>LOADING</p>}
         {this.state.error && <p>{this.state.error}</p>}
 
-        {this.state.repos && <pre>{JSON.stringify(this.state.repos, null, 2)}</pre>}
+        {this.state.repos[this.state.selectedLanguage] && <pre>{JSON.stringify(this.state.repos[this.state.selectedLanguage], null, 2)}</pre>}
       </React.Fragment>
 
     )
