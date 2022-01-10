@@ -40,6 +40,9 @@ export default class PopularList extends React.Component {
     this.changeLanguage = this.changeLanguage.bind(this)
     this.isLoading = this.isLoading.bind(this)
   }
+  componentDidMount(){
+    this.changeLanguage(this.state.selectedLanguage)
+  }
 
   changeLanguage(selectedLanguage) {
     this.setState({
