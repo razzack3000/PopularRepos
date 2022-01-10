@@ -37,6 +37,7 @@ export default class PopularList extends React.Component {
       repos: null
     }
     this.changeLanguage = this.changeLanguage.bind(this)
+    this.isLoading = this.isLoading.bind(this)
   }
 
   changeLanguage(selectedLanguage) {
