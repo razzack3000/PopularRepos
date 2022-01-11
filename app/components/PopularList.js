@@ -27,8 +27,20 @@ LanguagesNavbar.propTypes = {
   onUpdateLanguage: PropTypes.func.isRequired
 }
 
-function repoCards ({ repos }) {
+function RepoCards ({ repos }) {
+    return (
+      <ul>
 
+          {repos.map((langs) => (
+            <li>
+              {langs.name}
+            </li>
+
+          ))}
+
+      </ul>
+
+    )
 }
 
 export default class PopularList extends React.Component {
@@ -94,7 +106,7 @@ export default class PopularList extends React.Component {
         {this.isLoading() && <p>LOADING</p>}
         {this.state.error && <p>{this.state.error}</p>}
 
-        {this.state.repos[this.state.selectedLanguage] && <pre>{JSON.stringify(this.state.repos[this.state.selectedLanguage], null, 2)}</pre>}
+        {this.state.repos[this.state.selectedLanguage] && <RepoCards repos={this.state.repos[this.state.selectedLanguage]} />}
       </React.Fragment>
 
     )
