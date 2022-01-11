@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Button from '@mui/material/Button';
 import { fetchRepos } from '../apis/api'
 
-function LanguagesNavbar(props){
+function LanguagesNavbar({selected, onUpdateLanguage}){
 
   const languageCategories = [ 'All', 'JS', 'Java', 'Python', 'CSS', 'Ruby'];
   return (
@@ -12,8 +12,8 @@ function LanguagesNavbar(props){
       {languageCategories.map((language) => (
         <li key={language}>
            <Button variant="contained"
-           style={language === props.selected ? {color: 'yellow'} : null}
-           onClick={() => props.onUpdateLanguage(language)}>
+           style={language === selected ? {color: 'yellow'} : null}
+           onClick={() => onUpdateLanguage(language)}>
              {language}
            </Button>
         </li>
@@ -25,6 +25,10 @@ function LanguagesNavbar(props){
 LanguagesNavbar.propTypes = {
   selected: PropTypes.string.isRequired,
   onUpdateLanguage: PropTypes.func.isRequired
+}
+
+function repoCards ({ repos }) {
+
 }
 
 export default class PopularList extends React.Component {
