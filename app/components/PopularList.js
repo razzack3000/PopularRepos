@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 import Button from '@mui/material/Button';
 import { fetchRepos } from '../apis/api'
+import { FaUser, FaStar, FaCodeBranch, FaExclamationTriangle } from 'react-icons/fa'
 
 function LanguagesNavbar({selected, onUpdateLanguage}){
 
@@ -29,13 +30,35 @@ LanguagesNavbar.propTypes = {
 
 function RepoCards ({ repos }) {
     return (
-      <ul>
+      <ul className='card-list'>
 
-          {repos.map((langs) => (
-            <li>
-              {langs.name}
+          {repos.map((langs, index) => (
+            <li key={langs.html_url}>
+              <h1>#{index+1}</h1>
+              <img src={langs.owner.avatar_url}
+              alt={langs.login}
+              />
+              <h3>
+                <a href={langs.html_url}>{langs.owner.login}</a>
+              </h3>
+              <li>
+                <FaUser color='black' size={22} />
+                  {langs.name}
+              </li>
+              <li>
+                <FaStar color='gold' size={22} />
+                {langs.stargazers_count.toLocaleString()} stars
+              </li>
+              <li>
+                <FaCodeBranch color='green' size={22} />
+                {langs.forks.toLocaleString()} forks
+              </li>
+              <li>
+                <FaExclamationTriangle color='red' size={22} />
+                {langs.open_issues.toLocaleString()} open
+              </li>
+
             </li>
-
           ))}
 
       </ul>
