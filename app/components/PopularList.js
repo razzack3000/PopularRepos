@@ -121,7 +121,7 @@ export default class PopularList extends React.Component {
   render() {
 
     return (
-      <React.Fragment>
+      <div>
         <LanguagesNavbar
         selected={this.state.selectedLanguage}
         onUpdateLanguage={this.changeLanguage}
@@ -130,7 +130,7 @@ export default class PopularList extends React.Component {
         {this.state.error && <p>{this.state.error}</p>}
 
         {this.state.repos[this.state.selectedLanguage] && <RepoCards repos={this.state.repos[this.state.selectedLanguage]} />}
-      </React.Fragment>
+      </div>
 
     )
   }
